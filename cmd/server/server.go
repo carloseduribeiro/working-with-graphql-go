@@ -23,13 +23,24 @@ func main() {
 	}
 	defer db.Close()
 
+	if _, err := db.Exec(`create table if not exists category(id string, name string, description string)`); err != nil {
+		panic(err)
+	}
+	if _, err := db.Exec(`create table if not exists course(id string, name string, description string, category_id string)`); err != nil {
+		panic(err)
+	}
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
 	}
 
 	categoryDB := database.NewCategory(db)
-	resolver := &graph.Resolver{CategoryDB: categoryDB}
+	courseDB := database.NewCourse(db)
+	resolver := &graph.Resolver{
+		CategoryDB: categoryDB,
+		CourseDB:   courseDB,
+	}
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: resolver}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
