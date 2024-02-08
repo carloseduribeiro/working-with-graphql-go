@@ -1,0 +1,17 @@
+mutation createCategory {
+    createCategory(input: {name: "Tecnologia", description: "Cursos de Tecnologia"}) {
+        id
+        name
+        description
+    }
+}
+
+mutation createCourse {
+    createCourse(
+        input: {name: "Go Expert", description: "FullCycle", categoryId: "ab099abe-0eb8-478d-86ed-a51cccbd2aab"}
+    ) {
+        id
+        name
+        description
+    }
+}

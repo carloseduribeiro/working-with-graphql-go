@@ -1,0 +1,39 @@
+query queryCategories {
+    categories {
+        id
+        name
+        description
+    }
+}
+
+query queryCategoriesWithCourses {
+    categories {
+        id
+        name
+        description
+        courses {
+            id
+            name
+        }
+    }
+}
+
+query queryCourses {
+    courses {
+        id
+        name
+        description
+    }
+}
+
+query queryCoursesWithCategories {
+    courses {
+        id
+        name
+        description
+        category {
+            name
+            description
+        }
+    }
+}
